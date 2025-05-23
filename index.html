@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FD Rate Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="wrapper">
+        <h2>FD Rate Calculator</h2>
+        <div class="inputdiv">
+            <input type="text" id="input" placeholder="Enter tenure in months" onkeypress="handleKeyPress(event)">
+        </div>
+        <div>
+            <button onclick="fdRate()">Calculate</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+      function fdRate() {
+        const input = document.getElementById("input").value.trim();
+        const months = Number(input);
+        const result = document.getElementById("result");
+
+        if (input === "" || isNaN(months) || months <= 0) {
+          result.innerHTML = "❌ Please enter a valid number of months.";
+          result.style.color = "red";
+          return;
+        }
+
+        let rate = 0;
+
+        if (months < 3)
+            rate = 5.8;
+        else if (months >= 3 && months <= 6)
+            rate = 6.5;
+        else if (months >= 7 && months <= 9)
+            rate = 6.8;
+        else
+            rate = 7;
+
+        result.innerHTML = `✅ Your interest rate is <strong>${rate}%</strong>`;
+        result.style.color = "green";
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          fdRate();
+        }
+      }
+    </script>
+</body>
+</html>
+
